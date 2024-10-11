@@ -1,4 +1,9 @@
-import { createNote, deleteNote, fetchAllNotes } from '@/services/notes.service'
+import {
+  createNote,
+  deleteNote,
+  fetchAllNotes,
+  updateNote,
+} from '@/services/notes.service'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
@@ -31,5 +36,19 @@ export const useNotesStore = defineStore('notes', () => {
     }
   }
 
-  return { notes, notesCount, addNote, getNotes, removeNote }
+  //   editar nota
+  async function editNote(id, form) {
+    const updateNoteData = await updateNote(id, form)
+
+    if (updateNoteData) {
+      notes.value = notes.value.map(note => {
+        if (note._uuid === id) {
+          return { ...note, ...updateNoteData }
+        }
+        return note
+      })
+    }
+  }
+
+  return { notes, notesCount, addNote, getNotes, removeNote, editNote }
 })

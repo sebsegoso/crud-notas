@@ -44,3 +44,13 @@ export const deleteNote = async id => {
     return false
   }
 }
+
+export const updateNote = async (id, form) => {
+  try {
+    const response = await api.put(`/notes/${id}`, form)
+
+    return response.data
+  } catch (error) {
+    console.error(`Error al actualizar nota con id ${id}`, error)
+  }
+}
