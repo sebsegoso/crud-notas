@@ -13,8 +13,8 @@ const { note } = defineProps({
 </script>
 
 <template>
-  <div class="card h-100">
-    <div class="card-header d-flex" data-test="note-title">
+  <div class="note-item h-100">
+    <div class="note-item__header" data-test="note-title">
       <h3 class="flex-fill fw-bold fs-3">{{ note.title }}</h3>
 
       <div class="dropdown">
@@ -46,10 +46,27 @@ const { note } = defineProps({
         </ul>
       </div>
     </div>
-    <div class="card-body">
-      <p class="card-text" data-test="note-content">
+    <div class="note-item__body">
+      <p class="" data-test="note-content">
         {{ note.content }}
       </p>
     </div>
   </div>
 </template>
+
+<style lang="scss" scoped>
+.note-item {
+  border: 1px solid $color-dark;
+  box-shadow: 0px 0px 10px $color-dark;
+  border-radius: $main-border-radius;
+  &__header {
+    border-radius: $main-border-radius $main-border-radius 0 0;
+    display: flex;
+    background-color: $color-main-bg;
+    padding: 1rem;
+  }
+  &__body {
+    padding: 2rem 1rem;
+  }
+}
+</style>
