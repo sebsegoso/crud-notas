@@ -34,6 +34,16 @@ export const fetchAllNotes = async () => {
   }
 }
 
+export const fetchNoteById = async id => {
+  try {
+    const response = await api.get(`/notes/${id}`)
+
+    return response.data
+  } catch (error) {
+    console.error(`Error al hacer fetch a nota con id ${id}`, error)
+  }
+}
+
 // eliminar una nota
 export const deleteNote = async id => {
   try {

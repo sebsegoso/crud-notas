@@ -2,6 +2,7 @@ import {
   createNote,
   deleteNote,
   fetchAllNotes,
+  fetchNoteById,
   updateNote,
 } from '@/services/notes.service'
 import { defineStore } from 'pinia'
@@ -18,6 +19,22 @@ export const useNotesStore = defineStore('notes', () => {
       notes.value = notesData
     }
   }
+
+  //   leer solo 1 registro segun su id
+  function getItemById(id) {
+    return notes.value.find(note => note._uuid === id)
+  }
+
+  async function getNoteById(id) {
+    let noteData =
+      getItemById(id) /* primero verificar si está en store local */
+    if (!noteData) {
+      /* si no encuentra data en store local */
+      noteData = await fetchNoteById(id) /* hace consulta a la API */
+    }
+    return noteData
+  }
+
   // agregar nota
   async function addNote(note) {
     const newNoteData = await createNote(note)
@@ -48,7 +65,17 @@ export const useNotesStore = defineStore('notes', () => {
         return note
       })
     }
+
+    return updateNoteData
   }
 
-  return { notes, notesCount, addNote, getNotes, removeNote, editNote }
+  return {
+    notes,
+    notesCount,
+    addNote,
+    getNotes,
+    getNoteById,
+    removeNote,
+    editNote,
+  }
 })
