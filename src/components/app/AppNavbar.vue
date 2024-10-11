@@ -38,7 +38,7 @@ const notesStore = useNotesStore()
               active-class="active"
               class="nav-link"
               :to="{ name: 'notas' }"
-              >Notas ({{ notesStore.notesCount }})
+              >Mis notas ({{ notesStore.notesCount }})
             </RouterLink>
           </li>
         </ul>
